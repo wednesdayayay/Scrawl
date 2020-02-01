@@ -18,6 +18,31 @@ I'm totally new to github so bear with me as I learn how to best keep things upd
 
 if you have suggestions feel free to send them to me
 
+currently the next steps are
+1. refine MIDI control
+2. make things generally more readable and understandable
+3. clean up the simple brushes
+4. add 1 more specific kind of brush
+5. write instructions for how I got the whole thing working
+6. learn how / upload it all on github
+
+in the future I'll add
+more advanced brushes
+the ability to auto modulate some parameters
+built in mirroring of the brushes (this is a blast to play with)
+possibly the ability to use the brush size/position as a frame for video playback/webcam/picture input
+
+
+got the auto boot working 
+so when I've got all my fixes together I'll supply 
+
+a) the source on here
+
+as well as 
+
+b) an img to flash onto a microSD card if you would rather 
+(haven't tried the image creation part yet but it looks pretty easy)
+
 here are a couple pictures of it in various uses
 
 ![](https://i.imgur.com/4pMT7vB.png)
