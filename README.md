@@ -19,38 +19,26 @@ I'm totally new to github so bear with me as I learn how to best keep things upd
 
 if you have suggestions feel free to send them to me
 
+here are a couple pictures of it in various uses
+
 ![](https://i.imgur.com/4pMT7vB.png)
-
 ![](https://i.imgur.com/d76o9V5.png)
-
 ![](https://i.imgur.com/ktaxpIt.png)
-
 ![](https://i.imgur.com/frjxfF0.png)
-
 ![](https://i.imgur.com/L0MkPR3.png)
-
 ![](https://i.imgur.com/bPZvw5u.png)
-
 ![](https://i.imgur.com/hDEZ2oK.png)
-
 ![](https://i.imgur.com/dbD3T6P.png)
-
 ![](https://i.imgur.com/IVpBQpV.png)
-
 ![](https://i.imgur.com/k4utdDs.png)
-
 ![](https://i.imgur.com/LxBydcl.png)
-
 ![](https://i.imgur.com/mVPjNtP.png)
-
 ![](https://i.imgur.com/PRFt8oZ.png)
-
 ![](https://i.imgur.com/kBNhmNM.png)
-
-![](https://i.imgur.com/iLH1w0n.png)
 
 
 here are a couple videos of it in use 
 
 https://www.instagram.com/p/B7zSMVzhwnv/ 
+
 https://www.instagram.com/p/B7g4iRWBu-v/
