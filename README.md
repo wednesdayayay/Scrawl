@@ -64,5 +64,10 @@ here are a couple pictures of it in various uses
 here are a couple videos of it in use 
 
 https://www.instagram.com/p/B7zSMVzhwnv/ 
+just to be clear all scrawl is doing in this video is making a circle shape, sizing and positioning it, then coloring it
+structure is giving 4 way mirroring (which should be easy enough to add into scrawl and drawing with mirroring is pretty addictive)
+and memory palace is giving the feedback
+
 
 https://www.instagram.com/p/B7g4iRWBu-v/
+here an early version of scrawl is being send through the https://github.com/meltdream/strange-loop strange loop device for feedback effects
