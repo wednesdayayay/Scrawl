@@ -1,5 +1,4 @@
 # Scrawl
-standalone Raspberry Pi shape generator/positioner/painter
 
 Scrawl is a standalone RGBA shape generator/positioner with painting capabilities, full MIDI/keyboard and some mouse control for the Raspberry Pi (currently using 3b+).
 
