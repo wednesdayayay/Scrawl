@@ -1,5 +1,7 @@
 # Scrawl
 
+///Intro
+
 Scrawl is a standalone RGBA shape generator/positioner with painting capabilities, full MIDI/keyboard and some mouse control for the Raspberry Pi (currently using 3b+).
 
 This project was originally meant as a means to an end for my community theatre. DMX lighting can get very expensive when you are talking about moving heads and RGB color mixing(or any other colorspace). I wanted to try to make a project where I could replicate this behavior with a Raspberry Pi and a projector. There would be obvious limitations but it could also do things even the most expensive DMX light could not, at least in my head it would.
@@ -17,6 +19,8 @@ while the project was born for theatre it will be perfectly at home in a video s
 I'm totally new to github so bear with me as I learn how to best keep things updated my intention is to release this project as source files and also a downloadable disk image to be burned onto a microSD card with something like https://www.balena.io/etcher/
 
 if you have suggestions feel free to send them to me
+
+///Moving forward
 
 currently the next steps are
 1. refine MIDI control
@@ -50,7 +54,7 @@ and a picture detailing what on the korg controller is mapped where
 
 you can also use a keyboard to interact with all of scrawls parameters that you can with MIDI together or seperately
 
-///
+///Control (MIDI,Keyboard,Mouse)
 
 basic operation is as follows
 
@@ -58,36 +62,36 @@ mouse + MIDI
 mouse XY is used for most positioning 
     [Mouse MIDI] can also be used for more of an etcher sketch kind of feel
     
-  left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
+   left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
     
-    [MIDI mouse press] will imitate this behavior but since it is on a toggle (currently) you don't have to hold it down to paint 
-     [Mouse cursor] you can turn the mouse cursor on and off
+   [MIDI mouse press] will imitate this behavior but since it is on a toggle (currently) you don't have to hold it down to paint 
+    [Mouse cursor] you can turn the mouse cursor on and off
      [fill MIDI] you can turn the fill on and off for the brush
      
-  right mouse button pressed will erase the screen to black or whatever color is currently being mixed via the (RGB background MIDI)
-  [MIDI erase] will also do the same
-  [keyboard erase] will also do the same
+   right mouse button pressed will erase the screen to black or whatever color is currently being mixed via the (RGB background MIDI)
+    [MIDI erase] will also do the same
+    [keyboard erase] will also do the same
   
   outside of paint mode you will always see the brush on the screen this is the spotlight mode
   
-  [brush MIDI] you can select from several different brushes
+   [brush MIDI] you can select from several different brushes
     1.circle
     2.rectangle
     3.triangle
     4.random line
     5.star burst
     
- [brushcolor MIDI] you can turn color for the brush on and off  
+   [brushcolor MIDI] you can turn color for the brush on and off  
     if you turn off brush color it will default back to white
     
-    [invert brush MIDI] you can invert the current brush color. toggle
+   [invert brush MIDI] you can invert the current brush color. toggle
     [randomize brush color MIDI] you can randomize the current brush color. toggle
     
-  [size MIDI] changing the size of the brush is also possible
+   [size MIDI] changing the size of the brush is also possible
   
   
   
-///
+///Examples
 
 here are a couple pictures of it in various uses
 
