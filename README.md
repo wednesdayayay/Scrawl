@@ -43,6 +43,11 @@ as well as
 b) an img to flash onto a microSD card if you would rather 
 (haven't tried the image creation part yet but it looks pretty easy)
 
+I've uploaded a MIDI control template for the korg nano kontrol version 1
+it won't be the final one as it is more utilitarian than intuitively laid out for playing currently
+after I'm done with my next MIDI sweep I'll also add a list of MIDI values to be used with scrawl
+and a picture detailing what on the korg controller is mapped where
+
 here are a couple pictures of it in various uses
 
 ![](https://i.imgur.com/4pMT7vB.png)
