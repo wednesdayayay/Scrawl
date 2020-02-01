@@ -8,7 +8,7 @@ I started watching some openframeworks tutorial videos https://www.youtube.com/p
 
 then I started playing with R_E_C_U_R https://github.com/langolierz/r_e_c_u_r
 
-and then finally waaaaave pool was released https://github.com/ex-zee-ex/waaaave_pool
+and then finally waaaave pool was released https://github.com/ex-zee-ex/waaaave_pool
 
 waaaaave pool released a distribution that has become the foundation for Scrawl. Through much trial and error I figured out my way around the raspberry pi and loaded up some simple projects.
 
