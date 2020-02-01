@@ -48,6 +48,47 @@ it won't be the final one as it is more utilitarian than intuitively laid out fo
 after I'm done with my next MIDI sweep I'll also add a list of MIDI values to be used with scrawl
 and a picture detailing what on the korg controller is mapped where
 
+you can also use a keyboard to interact with all of scrawls parameters that you can with MIDI together or seperately
+
+///
+
+basic operation is as follows
+
+mouse + MIDI
+mouse XY is used for most positioning 
+    [Mouse MIDI] can also be used for more of an etcher sketch kind of feel
+    
+  left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
+    
+    [MIDI mouse press] will imitate this behavior but since it is on a toggle (currently) you don't have to hold it down to paint 
+     [Mouse cursor] you can turn the mouse cursor on and off
+     [fill MIDI] you can turn the fill on and off for the brush
+     
+  right mouse button pressed will erase the screen to black or whatever color is currently being mixed via the (RGB background MIDI)
+  [MIDI erase] will also do the same
+  [keyboard erase] will also do the same
+  
+  outside of paint mode you will always see the brush on the screen this is the spotlight mode
+  
+  [brush MIDI] you can select from several different brushes
+    1.circle
+    2.rectangle
+    3.triangle
+    4.random line
+    5.star burst
+    
+ [brushcolor MIDI] you can turn color for the brush on and off  
+    if you turn off brush color it will default back to white
+    
+    [invert brush MIDI] you can invert the current brush color. toggle
+    [randomize brush color MIDI] you can randomize the current brush color. toggle
+    
+  [size MIDI] changing the size of the brush is also possible
+  
+  
+  
+///
+
 here are a couple pictures of it in various uses
 
 ![](https://i.imgur.com/4pMT7vB.png)
