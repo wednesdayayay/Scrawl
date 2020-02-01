@@ -31,9 +31,14 @@ currently the next steps are
 6. learn how / upload it all on github
 
 in the future I'll add
+
+
 more advanced brushes
+
 the ability to auto modulate some parameters
+
 built in mirroring of the brushes (this is a blast to play with)
+
 possibly the ability to use the brush size/position as a frame for video playback/webcam/picture input
 
 
