@@ -19,44 +19,38 @@ I'm totally new to github so bear with me as I learn how to best keep things upd
 
 if you have suggestions feel free to send them to me
 
-![Image description](https://imgur.com/4pMT7vB)
+![](https://i.imgur.com/4pMT7vB.png)
 
-![Image description](https://imgur.com/d76o9V5)
+![](https://i.imgur.com/d76o9V5.png)
 
-![Image description](https://imgur.com/ktaxpIt)
+![](https://i.imgur.com/ktaxpIt.png)
 
-![Image description](https://imgur.com/frjxfF0)
+![](https://i.imgur.com/frjxfF0.png)
 
+![](https://i.imgur.com/L0MkPR3.png)
 
-![Image description](https://imgur.com/L0MkPR3)
+![](https://i.imgur.com/bPZvw5u.png)
 
-![Image description](https://imgur.com/bPZvw5u)
+![](https://i.imgur.com/hDEZ2oK.png)
 
+![](https://i.imgur.com/dbD3T6P.png)
 
+![](https://i.imgur.com/IVpBQpV.png)
 
-![Image description](https://imgur.com/hDEZ2oK)
+![](https://i.imgur.com/k4utdDs.png)
 
+![](https://i.imgur.com/LxBydcl.png)
 
+![](https://i.imgur.com/mVPjNtP.png)
 
-![Image description](https://imgur.com/dbD3T6P)
+![](https://i.imgur.com/PRFt8oZ.png)
 
+![](https://i.imgur.com/kBNhmNM.png)
 
+![](https://i.imgur.com/iLH1w0n.png)
 
-![Image description](https://imgur.com/IVpBQpV)
-
-
-![Image description](https://imgur.com/k4utdDs)
-
-![Image description](https://imgur.com/LxBydcl)
-
-
-![Image description](https://imgur.com/mVPjNtP)
-![Image description](https://imgur.com/PRFt8oZ)
-
-
-![Image description](https://imgur.com/kBNhmNM)
-![Image description](https://imgur.com/iLH1w0n)
 
 here are a couple videos of it in use 
+
 https://www.instagram.com/p/B7zSMVzhwnv/ 
 https://www.instagram.com/p/B7g4iRWBu-v/
