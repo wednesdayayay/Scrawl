@@ -68,27 +68,27 @@ basic operation is as follows
 
 mouse + MIDI
 mouse XY is used for most positioning 
-    [Mouse MIDI] can also be used for more of an etcher sketch kind of feel
+    -[Mouse MIDI] can also be used for more of an etcher sketch kind of feel
     
-   left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
+  - left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
     
-   [MIDI mouse press] will imitate this behavior but since it is on a toggle (currently) you don't have to hold it down to paint 
-    [Mouse cursor] you can turn the mouse cursor on and off
-     [fill MIDI] you can turn the fill on and off for the brush
+   -[MIDI mouse press] will imitate this behavior but since it is on a toggle (currently) you don't have to hold it down to paint 
+    -[Mouse cursor] you can turn the mouse cursor on and off
+     -[fill MIDI] you can turn the fill on and off for the brush
      
-   right mouse button pressed will erase the screen to black or whatever color is currently being mixed via the (RGB background MIDI)
-    [MIDI erase] will also do the same
-    [keyboard erase] will also do the same
+   -right mouse button pressed will erase the screen to black or whatever color is currently being mixed via the (RGB background MIDI)
+   - [MIDI erase] will also do the same
+    -[keyboard erase] will also do the same
   
-  outside of paint mode you will always see the brush on the screen this is the spotlight mode
+  -outside of paint mode you will always see the brush on the screen this is the spotlight mode
   
-  [trans x,y,z] displaces your entire image (good for mirror mode) 
+  -[trans x,y,z] displaces your entire image (good for mirror mode) 
   
   
-   [brush MIDI] you can select from several different brushes
+   -[brush MIDI] you can select from several different brushes
     1.circle
         size
-        [cirres MIDI] changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
+        -[cirres MIDI] changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
     2.rectangle
         size,size2
     3.triangle
@@ -97,15 +97,15 @@ mouse XY is used for most positioning
     5.star burst
         size, size2
     
-   [brushcolor toggle MIDI] you can turn color for the brush on and off  
-    if you turn off brush color it will default back to white
-    [brush color MIDI RGBA] allows for individual channels of color mixing fir the brush
+   -[brushcolor toggle MIDI] you can turn color for the brush on and off  
+         if you turn off brush color it will default back to white
+   - [brush color MIDI RGBA] allows for individual channels of color mixing fir the brush
     
-   [invert brush MIDI] you can invert the current brush color. toggle
-    [randomize brush color MIDI] you can randomize the current brush color. toggle
+   -[invert brush MIDI] you can invert the current brush color. toggle
+    -[randomize brush color MIDI] you can randomize the current brush color. toggle
     
-   [size MIDI] changing the size of the brush is also possible
-   [size2 MIDI] used for the rectangle brush
+   -[size MIDI] changing the size of the brush is also possible
+   -[size2 MIDI] used for the rectangle brush
   
   
   
