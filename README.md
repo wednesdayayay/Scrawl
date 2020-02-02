@@ -86,15 +86,15 @@ mouse XY is used for most positioning
   
   
    -[brush MIDI] you can select from several different brushes
-    1.circle
+     1.circle
         size
         -[cirres MIDI] changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
-    2.rectangle
+     2.rectangle
         size,size2
-    3.triangle
+     3.triangle
         size, size2, trix, triy
-    4.random line
-    5.star burst
+     4.random line
+     5.star burst
         size, size2
     
    -[brushcolor toggle MIDI] you can turn color for the brush on and off  
