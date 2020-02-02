@@ -1,6 +1,6 @@
 # Scrawl
 
-///Intro
+/// Intro
 
 Scrawl is a standalone RGBA shape generator/positioner with painting capabilities, full MIDI/keyboard and some mouse control for the Raspberry Pi (currently using 3b+).
 
@@ -20,7 +20,7 @@ I'm totally new to github so bear with me as I learn how to best keep things upd
 
 if you have suggestions feel free to send them to me
 
-///Moving forward
+/// Moving forward
 
 currently the next steps are
 1. refine MIDI control
@@ -52,14 +52,17 @@ as well as
 b) an img to flash onto a microSD card if you would rather 
 (haven't tried the image creation part yet but it looks pretty easy)
 
+
+
+/// Control (MIDI,Keyboard,Mouse)
+
 I've uploaded a MIDI control template for the korg nano kontrol version 1
 it won't be the final one as it is more utilitarian than intuitively laid out for playing currently
 after I'm done with my next MIDI sweep I'll also add a list of MIDI values to be used with scrawl
 and a picture detailing what on the korg controller is mapped where
 
-you can also use a keyboard to interact with all of scrawls parameters that you can with MIDI together or seperately
-
-///Control (MIDI,Keyboard,Mouse)
+you can also use a keyboard to interact with all of the scrawl parameters
+you can use both MIDI, keyboard and Mouse all together
 
 basic operation is as follows
 
@@ -79,24 +82,34 @@ mouse XY is used for most positioning
   
   outside of paint mode you will always see the brush on the screen this is the spotlight mode
   
+  [trans x,y,z] displaces your entire image (good for mirror mode) 
+  
+  
    [brush MIDI] you can select from several different brushes
     1.circle
+        size
+        [cirres MIDI] changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
     2.rectangle
+        size,size2
     3.triangle
+        size, size2, trix, triy
     4.random line
     5.star burst
+        size, size2
     
-   [brushcolor MIDI] you can turn color for the brush on and off  
+   [brushcolor toggle MIDI] you can turn color for the brush on and off  
     if you turn off brush color it will default back to white
+    [brush color MIDI RGBA] allows for individual channels of color mixing fir the brush
     
    [invert brush MIDI] you can invert the current brush color. toggle
     [randomize brush color MIDI] you can randomize the current brush color. toggle
     
    [size MIDI] changing the size of the brush is also possible
+   [size2 MIDI] used for the rectangle brush
   
   
   
-///Examples
+/// Examples
 
 here are a couple pictures of it in various uses
 
