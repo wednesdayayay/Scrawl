@@ -53,7 +53,8 @@ you can use MIDI, keyboard and a mouse all together
 I will be trying to use [] brakets to represent paramenter/variable names below they may be a little expanded in some cases like [backgroundcolor1] instead of [bcolor1]. However in the MIDI/keyboard map I will be using the variable names as they appear in the code just for ease of finding. 
 
 /// MIDI map
-//top row of knobs on nano kontrol (left to right)
+
+// top row of knobs on nano kontrol (left to right)
 - 16
 - 17
 - 18
@@ -64,7 +65,7 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 - 23
 - 62
 
-//sliders on nano kontrol (left to right)
+// sliders on nano kontrol (left to right)
 - 120
 - 121
 - 122
@@ -75,7 +76,7 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 - 127
 - 119
 
-//toggle buttons (top and bottom row left to right top first bottom second)
+// toggle buttons (top and bottom row left to right top first bottom second)
 - 64
 - 32
 
@@ -111,7 +112,7 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 - 45 stop
 - 46 record
 
-///keyboard map 
+/// keyboard map 
 - paint mode [erase] s = paint | on x = paint off
 - brush on/off [drawing] 
 
