@@ -53,9 +53,8 @@ you can use MIDI, keyboard and a mouse all together
 
 basic operation is as follows
 
-mouse + MIDI
-mouse XY is used for most positioning 
-    -[Mouse MIDI] can also be used for more of an etcher sketch kind of feel
+  - mouse XY is used for most positioning 
+  - [Mouse MIDI] can also be used for more of an etcher sketch kind of feel
   - left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
   - unless [drawing] or [brushpreview] are on
   - [drawing] allows for a simulated mouse press works in and out of paint mode
