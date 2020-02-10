@@ -60,8 +60,8 @@ basic operation is as follows
   - [drawing] allows for a simulated mouse press works in and out of paint mode
   - [brushpreview] allows you to see the brush cursor (currently can't be mirrored) while in and out ofpaint mode and not draw in the frame buffer.
   - this can be a little weird at first it should be more obvious why it is set up this way in the demo video
-  - [Mouse cursor] you can turn the mouse cursor on and off. I may eventually have the program start with it off but it can be helpful especially when getting to know the program
-  - [fill MIDI] you can turn the fill on and off for the brush
+  - [Mouse cursor] a = OFF / z = ON | you can turn the mouse cursor on and off. I may eventually have the program start with it off but it can be helpful especially when getting to know the program
+  - [fill MIDI] D = don't fill / C = Fill | you can turn the fill on and off for the brush
   - right mouse button pressed will erase the screen to black or whatever color is currently being mixed via the (RGB background MIDI)
   - [MIDI erase] will also do the same
   - [keyboard erase] will also do the same
