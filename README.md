@@ -50,15 +50,79 @@ and a picture detailing what on the korg controller is mapped where
 you can also use a keyboard to interact with almost all of the scrawl parameters
 you can use MIDI, keyboard and a mouse all together
 
+I will be trying to use [] brakets to represent paramenter/variable names below they may be a little expanded in some cases like [backgroundcolor1] instead of [bcolor1]. However in the MIDI/keyboard map I will be using the variable names as they appear in the code just for ease of finding. 
+
+/// MIDI map
+//top row of knobs on nano kontrol (left to right)
+16
+17
+18
+19
+20
+21
+22
+23
+62
+
+//sliders on nano kontrol (left to right)
+120
+121
+122
+123
+124
+125
+126
+127
+119
+
+//toggle buttons (top and bottom row left to right top first bottom second)
+64
+32
+
+65
+33
+
+66
+34
+
+67
+35
+
+68
+36
+
+69
+37
+
+70
+38
+
+39
+55
+
+61
+60
+
+//6 buttons on the left side of unit (<<, >, >>, loop, stop, record)
+43 <<
+44 >
+42 >>
+41 loop
+45 stop
+46 record
+
+///keyboard map 
+paint mode [erase] s = paint | on x = paint off
+brush on/off [drawing]
 
 basic operation is as follows
 
   - mouse XY is used for most positioning 
-  - [Mouse MIDI] can also be used for more of an etcher sketch kind of feel
-  - left mouse button pressed(in [paint mode MIDI]) will draw onto the screen otherwise you will not see the "brush"
-  - unless [drawing] or [brushpreview] are on
-  - [drawing] allows for a simulated mouse press works in and out of paint mode
-  - [brushpreview] allows you to see the brush cursor (currently can't be mirrored) while in and out ofpaint mode and not draw in the frame buffer.
+  - [Mouse MIDI CC's X-22 Y-23] can also be used for more of an etcher sketch kind of feel
+  - left mouse button pressed(in [paint mode MIDI CC 70]) will draw onto the screen otherwise you will not see the "brush"
+  - unless [drawing CC 38] or [brushpreview CC 46] are on
+  - [drawing CC 38] allows for a simulated mouse press works in and out of paint mode
+  - [brushpreview CC 46] allows you to see the brush cursor (currently can't be mirrored) while in and out ofpaint mode and not draw in the frame buffer.
   - this can be a little weird at first it should be more obvious why it is set up this way in the demo video
   - [Mouse cursor] a = OFF / z = ON | you can turn the mouse cursor on and off. I may eventually have the program start with it off but it can be helpful especially when getting to know the program
   - [fill MIDI] D = don't fill / C = Fill | you can turn the fill on and off for the brush
@@ -115,7 +179,10 @@ basic operation is as follows
   
  /// Running Scrawl
  
- if you aren't too sure what to do with the source and don't want to wait for me to get my image uploaded follow these instructions
+ 1. you can download the 1 image here https://drive.google.com/file/d/1A_WYlWiLiBFM-Q_HzaYCTHow6WMYsq3X/view?usp=sharing
+ burn this onto your microSD with balena etcher linked above insert into RPI 3b/3b+ (older hardware revision the push pull microSD card interface) and it should boot right up for you upon start
+ 
+2.  if you aren't too sure what to do with the source and don't want to wait for me to get my image uploaded follow these instructions
  1. you can download the waaaave pool image and use that as a base to work from. linked above
  2. flash that onto your microSD card using the etcher linked above
  3. turn on RPI with waaaave pool image, press escape when waaaave pool starts up
