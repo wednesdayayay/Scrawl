@@ -113,7 +113,30 @@ basic operation is as follows
   - not only does the shape number change but also goes to raotation amount /360 for symmetry
   - [scale] - you can do some interesting things with this one make sure to set the number of shapes to scale between! combine with mirroring for different effects. [trix] slider becomes scale amount when scale is on else it is used as [trix]
   
-    
+ /// Running Scrawl
+ 
+ if you aren't too sure what to do with the source and don't want to wait for me to get my image uploaded follow these instructions
+ 1. you can download the waaaave pool image and use that as a base to work from. linked above
+ 2. flash that onto your microSD card using the etcher linked above
+ 3. turn on RPI with waaaave pool image, press escape when waaaave pool starts up
+ 4. pull the whole scrawl folder into your openframeworks my apps folder
+ 5. copy the directory in open frameworks > my apps > scrawl
+ 5. open terminal, press escape to quit out of waaaave pool
+ 6. "cd (paste the directory you copied above)" press enter
+ 7. "make" press enter
+ 8. wait for that to finish it doesn't take too long
+ 9. "make run" press enter
+ 
+ if your pi isn't connected to the internet you may get an error having to do with the date/time
+ if so go into terminal "sudo date 021005422020" the number represent the time in this format MMDDhhmmYYYY
+ if you want to run of composite rather than HDMI open the config file (insert microSD into a card reader in your computer it will show up on that card as config.txt) and #/comment out the following three lines 1. hdmi_force_hotplug 2. hdmi_mode 3. hdmi_group
+ 
+ 
+ it should start up for you at that point
+ once you have made the file once you can "cd" to that directory and "make run" any time to run scrawl
+ with my forthcoming image it will just automatically start thus giving you another cartidge in the ever growing raspberry pi arsenal of video synths
+ 
+ 
   
   
 /// Examples
