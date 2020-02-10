@@ -70,29 +70,29 @@ mouse XY is used for most positioning
   - [brush MIDI] you can select from several different brushes
     
    1.circle
-        size - size of circle
-        cirres - changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
+      -  size - size of circle
+      -  cirres - changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
     
    2.rectangle
-        size - X/width
-        size2 - y/height
+      -  size - X/width
+      -  size2 - y/height
      
    3.triangle
-        size - changes amount of all three following angles at same time
-        size2 - position1
-        trix - position2
-        triy - position3
-        cirres - rotate entire triangle
+      -  size - changes amount of all three following angles at same time
+      -  size2 - position1
+      -  trix - position2
+      -  triy - position3
+      -  cirres - rotate entire triangle
      
    4.random line
      
    5.star burst
-        size - max radius
-        size2 - number of lines
-        cirres - minimum radius
+      -  size - max radius
+      -  size2 - number of lines
+      -  cirres - minimum radius
   
     
-   -[brushcolor toggle MIDI] you can turn color for the brush on and off  
+   - [brushcolor toggle MIDI] you can turn color for the brush on and off  
          if you turn off brush color it will default back to white
    - [brush color MIDI RGBA] allows for individual channels of color mixing for the brush via knobs or keyboard
     
@@ -102,6 +102,18 @@ mouse XY is used for most positioning
   - [colorbrush/softpaint] - toggles between full RGBA control [colorbrush] and RGB with random alpha [softpaint]
   - [color random/fullrandom] - [colorrandom] one randomizes RGB with full alpha control / [fullrandom] randomizes RGBA
   - all randomized colors use the RGB&orA knobs as a max for their randomization so if you turn it all the way down that channel will not be present or anywhere between 
+  - [randomcolortime] changes the amount of time between colors being randomized
+  - [backgroundrandom] randomizes both background colors
+  - [backgroundgradient] turns ON/OFF background gradient currently set to just be circle
+  - [gradient/brush color] changes if the gradient or brush is having the RGBA knobs control their color. This allows for coloring the background gradient and brush seperately using the same knobs
+  - [mirror] turns mirroring ON/OFF 
+  - [2/4] - switches between 2 and 4 shapes for mirroing
+  - [8/16] - switches between 8 and 16 shapes for mirroing
+  - [32/64] - switches between 32 and 64 shapes for mirroing
+  - all of the above switches are toggles this may get changes later to cycle through those values
+  - not only does the shape number change but also goes to raotation amount /360 for symmetry
+  - [scale] - you can do some interesting things with this one make sure to set the number of shapes to scale between! combine with mirroring for different effects. [trix] slider becomes scale amount when scale is on else it is used as [trix]
+  
     
   
   
