@@ -182,7 +182,8 @@ basic operation is as follows
  a. you can download the V1 image here https://drive.google.com/file/d/1A_WYlWiLiBFM-Q_HzaYCTHow6WMYsq3X/view?usp=sharing
  burn this onto your microSD with balena etcher linked above insert into RPI 3b/3b+ (older hardware revision the push pull microSD card interface) and it should boot right up for you upon start
  
- b  if you aren't too sure what to do with the source and don't want to wait for me to get my image uploaded follow these instructions
+ b  you can upload the source code yourself with the following instructions saving a long download time
+ 
  1. you can download the waaaave pool image and use that as a base to work from. linked above
  2. flash that onto your microSD card using the etcher linked above
  3. turn on RPI with waaaave pool image, press escape when waaaave pool starts up
