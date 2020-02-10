@@ -149,3 +149,6 @@ https://www.instagram.com/p/B7g4iRWBu-v/
 
 here an early version of scrawl is being send through the strange loop device for feedback effects
 https://github.com/meltdream/strange-loop
+
+and lastly a version very close to what I've just put up being sent through the LZX memory palace by way of LZX visual cortex
+https://www.instagram.com/p/B8XrftUhaoh/
