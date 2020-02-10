@@ -16,8 +16,8 @@ void ofApp::setup(){
     
     //if MIDI isn't working check your device number in the consdole when you first make it
     //change the (0) to whatever your MIDI controller is
-    //midiIn.openPort(0);
-    midiIn.openPort(1);
+    midiIn.openPort(0);
+    //midiIn.openPort(1);
     midiIn.ignoreTypes(false, false, false);
     midiIn.addListener(this);
     
@@ -241,6 +241,7 @@ void ofApp::draw(){
                             p3 += mousePos  ;
                             
                             ofDrawTriangle(p1, p2, p3);}
+                       
                         
                         
                         //random line brush
@@ -248,7 +249,6 @@ void ofApp::draw(){
                         //no real control
                         
     //**set up above to also be controled by randomtime then call here
-    //**if doesn't work it was just ofgetwidth/height/2 top and ofgetwidth/height on bottom
                         if (brush == 4){
                             
                                 if ((mirror == true) or
@@ -287,6 +287,7 @@ void ofApp::draw(){
                                 float alpha = ofMap(distance, minRadius, maxRadius, brushalpha, 0);  // Make shorter lines more opaque set by [brushalpha]
                                     //
         //**delete all for single color brush
+                                
                                 if (brushcolor == true) {
                                     if (ColorofBrush == 1)
                                     {ofSetColor(brushred,brushgreen,brushblue,alpha);}
@@ -305,7 +306,7 @@ void ofApp::draw(){
                                          ofRandom(0,brushblue),
                                          ofRandom(0,alpha));}}
                                  
-                                 
+                                 //
         //**single color brush delete above, uncomment below
                                 //ofSetColor(brushred,brushgreen,brushblue,alpha);
                                 
@@ -832,11 +833,6 @@ void ofApp::newMidiMessage(ofxMidiMessage& message){
      if (message.control==127){randomtime = message.value*6.5+1;}
     // if (message.control==127){transz=(message.value*3.25);}
     
-    
-    
-    
-    //if (message.control==127)
-    //{randomtime = message.value*6.5+1;}
     
     ///
     
