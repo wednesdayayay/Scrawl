@@ -113,7 +113,7 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 - 46 record
 
 /// keyboard map 
-- paint mode [erase] s = paint | on x = paint off
+- paint mode [erase] s = paint ON | x = paint OFF
 - brush on/off [drawing] 
 
 basic operation is as follows
@@ -133,24 +133,24 @@ basic operation is as follows
   - [trans x,y] displaces your entire image works best if background is black currently/ there is a mode I'm working on that double width and height of FBO in order to allow for 4 quadrants to paint onto. however I'll need to address the background gradient differently or take it out in order for that to work how I want
   - [brush MIDI] you can select from several different brushes
     
-   1.circle
+   1. Circle
       -  size - size of circle
       -  cirres - changes the resolution of the circle [cirresnoise] turns on/off some jitter in the resolution (fun in paint mode)
     
-   2.rectangle
+   2. Rectangle
       -  size - X/width
       -  size2 - y/height
      
-   3.triangle
+   3. Triangle
       -  size - changes amount of all three following angles at same time
       -  size2 - position1
       -  trix - position2
       -  triy - position3
       -  cirres - rotate entire triangle
      
-   4.random line
+   4. Random line
      
-   5.star burst
+   5. Star burst
       -  size - max radius
       -  size2 - number of lines
       -  cirres - minimum radius
