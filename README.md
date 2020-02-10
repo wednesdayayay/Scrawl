@@ -54,66 +54,66 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 
 /// MIDI map
 //top row of knobs on nano kontrol (left to right)
-16
-17
-18
-19
-20
-21
-22
-23
-62
+- 16
+- 17
+- 18
+- 19
+- 20
+- 21
+- 22
+- 23
+- 62
 
 //sliders on nano kontrol (left to right)
-120
-121
-122
-123
-124
-125
-126
-127
-119
+- 120
+- 121
+- 122
+- 123
+- 124
+- 125
+- 126
+- 127
+- 119
 
 //toggle buttons (top and bottom row left to right top first bottom second)
-64
-32
+- 64
+- 32
 
-65
-33
+- 65
+- 33
 
-66
-34
+- 66
+- 34
 
-67
-35
+- 67
+- 35
 
-68
-36
+- 68
+- 36
 
-69
-37
+- 69
+- 37
 
-70
-38
+- 70
+- 38
 
-39
-55
+- 39
+- 55
 
-61
-60
+- 61
+- 60
 
-//6 buttons on the left side of unit (<<, >, >>, loop, stop, record)
-43 <<
-44 >
-42 >>
-41 loop
-45 stop
-46 record
+//6 buttons on the left side of unit (<<, >, >>, loop, stop, record these are the labels on the controls not what they do)
+- 43 <<
+- 44 >
+- 42 >>
+- 41 loop
+- 45 stop
+- 46 record
 
 ///keyboard map 
-paint mode [erase] s = paint | on x = paint off
-brush on/off [drawing]
+- paint mode [erase] s = paint | on x = paint off
+- brush on/off [drawing] 
 
 basic operation is as follows
 
@@ -208,6 +208,8 @@ basic operation is as follows
   
   
 /// Examples
+if you use this and post it somewhere let me know I'd love to see what gets done with it
+#srawlpi if you don't mind :) 
 
 here are a couple pictures of it in various uses
 
