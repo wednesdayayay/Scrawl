@@ -39,7 +39,7 @@ the image is set up to use the composite output and autoboot Scrawl
 
 /// Control (MIDI,Keyboard,Mouse)
 
-I'm using the same template that I use for waaaave pool for easy integration
+I'm using the same MIDI template that I use for waaaave pool for easy integration
 
 I've uploaded a MIDI control template for the korg nano kontrol version 1
 it won't be the final one as it is more utilitarian than intuitively laid out for playing currently
