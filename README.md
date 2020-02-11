@@ -49,11 +49,11 @@ and a picture detailing what on the korg controller is mapped where
 you can also use a keyboard to interact with almost all of the scrawl parameters
 you can use MIDI, keyboard and a mouse all together
 
-I will be trying to use [] brakets to represent paramenter/variable names below they may be a little expanded in some cases like [backgroundcolor1] instead of [bcolor1]. However in the MIDI/keyboard map I will be using the variable names as they appear in the code just for ease of finding. 
-
 /// MIDI map
+the format is as follows
+- MIDI# [viariable name is code] description (MIDI # of other related parameter) | secondary function 
 
-// top row of knobs on nano kontrol (left to right)
+// top row of knobs on nano kontrol (left to right) CCs
 - 16 [brush] changes the current brush (currently 6 available)
 - 17 [size] changes a size parameter of current brush
 - 18 [brushred]/[bgcolor1] colors current brush with Red | if [backColor] (35) is on colors [bcolor1]
@@ -64,7 +64,7 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 - 23 [midimouseY] control is bipolar for Y direction
 - 62 [cirres] sets max resolution for circle shape | set rotation for triangle brush 3 | minimum radius for star burst 5
 
-// sliders on nano kontrol (left to right)
+// sliders on nano kontrol (left to right) CCs
 - 120 [trix]/[Scaleamount] usually used for triangle brushes | if [mirrorScale] (65) is ON sets Scale amount
 - 121 [size2] is used for some brushes for a second size (rectangle,triangles,star burst)
 - 122 [bcolor1] colors main background Red if paint mode is on it won't show up until screen is cleared
@@ -103,7 +103,7 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 - 61 invert brush color (works with [brush(red,green,blue)]
 - 60 randomize color for brush if alpha above 120(midi) then alpha stays the same as set othewise it is also randomized
 
-//6 buttons on the left side of unit (<<, >, >>, loop, stop, record these are the labels on the controls not what they do)
+//6 toggle buttons on left side of unit (<<, >, >>, loop, stop, record these are the labels on the controls not what they do)
 - 43 << [mirrorshape] ON 4 / OFF 2
 - 44 >  [mirrorshape] ON 16 / OFF 8
 - 42 >> [mirrorshape] ON 64 / OFF 36
