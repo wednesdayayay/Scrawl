@@ -33,9 +33,8 @@ in the future I'll add
 3. the ability to auto modulate some parameters
 4. possibly the ability to use the brush size/position as a frame for video playback/webcam/picture input
 
-I'l work on uploading an image file to burn onto a miroSD card soon for those who don't want to pull it onto the raspberry pi yourself
 
-the image will be set up to use the composite output and autoboot Scrawl
+the image is set up to use the composite output and autoboot Scrawl
 
 
 /// Control (MIDI,Keyboard,Mouse)
@@ -55,66 +54,78 @@ I will be trying to use [] brakets to represent paramenter/variable names below 
 /// MIDI map
 
 // top row of knobs on nano kontrol (left to right)
-- 16
-- 17
-- 18
-- 19
-- 20
-- 21
-- 22
-- 23
-- 62
+- 16 [brush] changes the current brush (currently 6 available)
+- 17 [size] changes a size parameter of current brush
+- 18 [brushred]/[bgcolor1] colors current brush with Red | if [backColor] (35) is on colors [bcolor1]
+- 19 [brushgreen]/[bgcolor2] colors current brush with green | if [backColor] (35)is on colors [bcolor2]
+- 20 [brushblue]/[bgcolor3] colors current brush with blue | if [backColor] (35) is on colors [bcolor3]
+- 21 [brushalpha]/[bgcolor4] sets alpha for current brush | if [backColor] (35) is on sets alpha for [bcolor4]
+- 22 [midimouseX] control is bipolar for X direction 
+- 23 [midimouseY] control is bipolar for Y direction
+- 62 [cirres] sets max resolution for circle shape | set rotation for triangle brush 3 | minimum radius for star burst 5
 
 // sliders on nano kontrol (left to right)
-- 120
-- 121
-- 122
-- 123
-- 124
-- 125
-- 126
-- 127
-- 119
+- 120 [trix]/[Scaleamount] usually used for triangle brushes | if [mirrorScale] (65) is ON sets Scale amount
+- 121 [size2] is used for some brushes for a second size (rectangle,triangles,star burst)
+- 122 [bcolor1] colors main background Red if paint mode is on it won't show up until screen is cleared
+- 123 [bcolor2] colors main background Green if paint mode is on it won't show up until screen is cleared
+- 124 [bcolor3] colors main background Blue if paint mode is on it won't show up until screen is cleared
+- 125 [transx] sets translation of current FBO in X direction
+- 126 [transy] sets translation of current FBO in Y direction
+- 127 [randomcolortime] if you have a random colorize mode on this will set the time between color changes
+- 119 [triy] used for triangle brushes
 
 // toggle buttons (top and bottom row left to right top first bottom second)
-- 64
-- 32
+- 64 turn mouse cursor ON/OFF
+- 32 [fill] turns fill ON/OFF for brush
 
-- 65
-- 33
+- 65 [mirrorScale] turns scaling mode ON/OFF scale amount (120) when scale is ON
+- 33 [brushcolor] turns colorization ON/OFF for brush if OFF defaults back to WHITE
 
-- 66
-- 34
+- 66 [mirror] turns mirror mode ON/OFF to see effect make sure to set [mirrorshape] (44,42)
+- 34 [backGrad] turn background gradient ON/OFF if OFF solid color set via [bcolor(1-3)] (122,123,124)
 
-- 67
-- 35
+- 67 none
+- 35 [backColor] changes context of (18,19,20,21) RGBA knobs if ON coloring background gradient | if OFF coloring brush if you don't have the background gradient on you won't see any change even if this is ON. Allows for brush and background gradient to be different colors
 
-- 68
-- 36
+- 68 none
+- 36 none
 
-- 69
-- 37
+- 69 none
+- 37 none
 
-- 70
-- 38
+- 70 [erase] if OFF paint mode if ON pointer/spotlight mode
+- 38 [drawing] simulates mouse press but it is a toggle rather than press
 
-- 39
-- 55
+- 39 randomize background color | both background and gradient if [backGrad](34) is on
+- 55 none
 
-- 61
-- 60
+- 61 invert brush color (works with [brush(red,green,blue)]
+- 60 randomize color for brush if alpha above 120(midi) then alpha stays the same as set othewise it is also randomized
 
 //6 buttons on the left side of unit (<<, >, >>, loop, stop, record these are the labels on the controls not what they do)
-- 43 <<
-- 44 >
-- 42 >>
-- 41 loop
-- 45 stop
-- 46 record
+- 43 << [mirrorshape] ON 4 / OFF 2
+- 44 >  [mirrorshape] ON 16 / OFF 8
+- 42 >> [mirrorshape] ON 64 / OFF 36
+- 41 loop [colorofbrush] toggles between full RGBA control [colorbrush] ON and RGB with random alpha "softpaint" OFF
+- 45 stop [colorofbrush] colorrandom ON randomizes RGB with full alpha control / fullrandom OFF randomizes RGBA
+- 46 record [brushpreview] allows you to see the brush cursor (currently can't be mirrored) while in paint mode and not draw in the frame buffer.
 
 /// keyboard map 
 - paint mode [erase] s = paint ON | x = paint OFF
-- brush on/off [drawing] 
+- auto draw e = OFF | r = ON [drawing] 
+- 1-6 change to brushes 1. circle 2. rectangle 3. triangle 4. random line 5. starburst 6. ADV triangle
+- [size] f increment larger | v decrement smaller
+- [brushcolor] colorize brush G ON | B OFF if off defaults to white
+- [brushred] Y Increment | U decrement
+- [brushgreen] H increment | J decrement
+- [brushblue] B increment | N decrement
+- [brushalpha] R increment | T decrement
+- [bcolor1] I increment | O decrement
+- [bcolor2] K increment | L decrement
+- [bcolor3] , increment | . decrement
+- W reset background color to black
+- 0 randomize brush color
 
 basic operation is as follows
 
@@ -163,8 +174,8 @@ basic operation is as follows
   - [invert brush MIDI] you can invert the current brush color. toggle
   - [randomize brush color MIDI] you can randomize the current brush color. if alpha is above (midi 120) then alpha is not randomized else it is. toggle
   next are color randomization possibilties on two seperate toggles currently
-  - [colorbrush/softpaint] - toggles between full RGBA control [colorbrush] and RGB with random alpha [softpaint]
-  - [color random/fullrandom] - [colorrandom] one randomizes RGB with full alpha control / [fullrandom] randomizes RGBA
+  - [colorbrush/softpaint] - toggles between full RGBA control [colorbrush] ON  and RGB with random alpha [softpaint] OFF
+  - [color random/fullrandom] - [colorrandom] ON randomizes RGB with full alpha control / [fullrandom] OFF randomizes RGBA
   - all randomized colors use the RGB&orA knobs as a max for their randomization so if you turn it all the way down that channel will not be present or anywhere between 
   - [randomcolortime] changes the amount of time between colors being randomized
   - [backgroundrandom] randomizes both background colors
