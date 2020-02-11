@@ -16,8 +16,8 @@ void ofApp::setup(){
     
     //if MIDI isn't working check your device number in the consdole when you first make it
     //change the (0) to whatever your MIDI controller is
-    midiIn.openPort(0);
-    //midiIn.openPort(1);
+    //midiIn.openPort(0);
+    midiIn.openPort(1);
     midiIn.ignoreTypes(false, false, false);
     midiIn.addListener(this);
     
@@ -762,7 +762,7 @@ void ofApp::newMidiMessage(ofxMidiMessage& message){
     
     ////below MIDI CCs
     
-    //MIDI brush changer 16 CC | 4 slots for mirroring
+    //MIDI brush changer 16 CC
     if (message.control==16){brush=message.value/127.0*5+1;}
     
     
@@ -773,7 +773,7 @@ void ofApp::newMidiMessage(ofxMidiMessage& message){
     //MIDI Size 17 CC
     if (message.control==17) {size=(message.value/127.00*ofGetWidth())+1;}
     
-    
+    //MIDI size2 121 CC
     if (message.control==121) {size2=(message.value/127.0*ofGetHeight())+1;}
     
    // if (message.control==17) {size=(message.value/127.00*480.)+1;}
@@ -871,7 +871,6 @@ void ofApp::newMidiMessage(ofxMidiMessage& message){
 
 
 
-///oftranslate on image
 //add image as brush?
 
 
