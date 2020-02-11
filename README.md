@@ -18,7 +18,9 @@ while the project was born for theatre it will be perfectly at home in a video s
 
 I'm totally new to github so bear with me as I learn how to best keep things updated my intention is to release this project as source files and also a downloadable disk image to be burned onto a microSD card with something like https://www.balena.io/etcher/
 
-if you have suggestions feel free to send them to me
+if you have suggestions feel free to send them to me at bukowskionmymind@gmail.com
+
+also if you really enjoy Scrawl and feel so inclined you can support me and my pursuit of more video synth cartridges to be released for free by sending money for cat food to nicholecanada@gmail.com via paypal
 
 /// Moving forward
 
