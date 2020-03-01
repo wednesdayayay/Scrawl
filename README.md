@@ -259,3 +259,10 @@ https://github.com/meltdream/strange-loop
 
 and lastly a version very close to what I've just put up being sent through the LZX memory palace by way of LZX visual cortex
 https://www.instagram.com/p/B8XrftUhaoh/
+
+
+and some tutorial videos about Scrawl more coming
+https://www.youtube.com/watch?v=_pWDQ47e0zk
+basics
+https://www.youtube.com/watch?v=ChrJlL-rqJY
+advanced brush and basic color randomization 
