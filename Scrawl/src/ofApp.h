@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxMidi.h"
+#define AMOUNT 64
 
 class ofApp : public ofBaseApp, public ofxMidiListener{
     
@@ -26,7 +27,9 @@ public:
     
     
     ofFbo fbo;
-    
+    ofFbo mask;
+    ofFbo paint;
+    ofVideoGrabber vidGrabber;
     
     bool fill = true;
     bool brushcolor = true;
@@ -37,7 +40,7 @@ public:
     bool drawing = true;
     bool backGrad = false;
     bool backColor = false;
-    bool brushpreview = true;
+    bool brushpreview = false;
     
     
     //
@@ -46,7 +49,7 @@ public:
     int brush = 1;
     int size = 45;
     int size2 = 15;
-    int mirrorshape = 4;
+    int mirrorshape = 3;
     int scaleamount = 1.1;
     int randomtime = 30;
     int ColorofBrush = 1;
@@ -95,7 +98,38 @@ public:
     int screenY = ofGetWidth()/2;
     
     
+    //Random color for mirroring
+    vector<int> colorR;
+    vector<int> colorG;
+    vector<int> colorB;
+    vector<int> colorA;
+    
+    int xPos;
+    int yPos;
+    int xSpeed;
+    int ySpeed;
+    bool Xrl = false;
+    bool Xlr = false;
+    bool Ytb = false;
+    bool Ybt = false;
+    
+    int xnoise = 0;
+    int ynoise = 0;
+    
+    bool videopainting = false;
+    
+    int width = 720;
+    int height = 480;
     
     
+    int mirrornumber = 1;
     
+    int pointerX = 0;
+    int pointerY = 0;
+    int mirrorpointerX = 0;
+    int mirrorpointerY = 0;
+    
+    bool randomdraw = false;
+    bool randomsize = false;
+    int randomamount = 0;
 };

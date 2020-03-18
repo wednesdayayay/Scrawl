@@ -4,42 +4,194 @@
 void ofApp::setup(){
 
     ofSetVerticalSync(true);
-    ofSetFrameRate(60);
-    //ofSetFrameRate(30);
-    ofEnableSmoothing();
+    ofSetFrameRate(30);
     ofEnableAntiAliasing();
+    ofEnableAlphaBlending();
+    ofToggleFullscreen();
     
-    
-    ////MIDI stuff
-    // print input ports to console
-    midiIn.listInPorts();
-    
-    //if MIDI isn't working check your device number in the consdole when you first make it
-    //change the (0) to whatever your MIDI controller is
-    //midiIn.openPort(0);
-    midiIn.openPort(1);
+    ///MIDI setup
+    midiIn.listInPorts();  // print input ports to console
+    //if MIDI isn't working check your device number in the console when you first make it change the (0) to whatever your MIDI controller is
+    //midiIn.openPort(0);//computer
+    midiIn.openPort(1);//Raspberry pi
     midiIn.ignoreTypes(false, false, false);
     midiIn.addListener(this);
+    midiIn.setVerbose(true); // print received messages to the console
+    ///
     
-    // print received messages to the console
-    midiIn.setVerbose(true);
-    ////
+    //int width = 640;
+    int height = 480;
+    
+    
+    
+    ///webcam/USB input setup
+    vidGrabber.setDeviceID(0);
+    vidGrabber.setDesiredFrameRate(30);
+    vidGrabber.setup(640, 480);
+    ///
+    
     
     ofBackground(0);
-    //**if background color then double the FBO allocation on W&H otherwise don't
     
+    
+    //allows for four quadrants to paint to navigated by translate X&Y
     //fbo.allocate(ofGetWidth()*2, ofGetHeight()*2 );
-    fbo.allocate(ofGetWidth(), ofGetHeight());
-    ofSetFrameRate(30);
+    
+    
+    ///FBO setup
+    fbo.allocate(ofGetWidth(), ofGetHeight(),GL_RGBA);
+    paint.allocate(ofGetWidth(), ofGetHeight(),GL_RGB);
+    
+    paint.begin();
+    ofClear(255);
+    paint.end();
     
     fbo.begin();
     ofClear(0);
     fbo.end();
+    ///
     
+    ///Mirror multicolor setup
+    colorR.resize(AMOUNT);
+    colorG.resize(AMOUNT);
+    colorB.resize(AMOUNT);
+    colorA.resize(AMOUNT);
+    
+    for (int i=0;i<AMOUNT;i++){
+        colorR[i] = ofRandom(0,255);
+        colorG[i] = ofRandom(0,255);
+        colorB[i] = ofRandom(0,255);
+        colorA[i] = ofRandom(0,255); }
+    ///
+    
+    
+    
+    xPos = 1;
+    yPos = 1;
+    
+    xSpeed = 1;
+    ySpeed = 1;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    vidGrabber.update();//update cam
+    
+    
+    ///Video painting setup || gets texture from video input and masks with current drawing
+    if(videopainting == true){vidGrabber.getTexture().setAlphaMask(fbo.getTexture());}
+    
+    
+    ///Clears video painting has to be here
+    if(ofGetMousePressed(OF_MOUSE_BUTTON_RIGHT)){
+        paint.begin(); ofClear(0); paint.end();}
+    
+    
+    ///Randomness setup for scrolling
+    if (randomdraw == true){
+    if (ofGetFrameNum() % randomtime == 0){
+		{xnoise = ofRandom(randomamount);}
+		{ynoise = ofRandom(randomamount);}}}
+
+    //randomness setup for size
+    if (randomsize == true){
+    if (ofGetFrameNum() % randomtime == 0){
+    {size = ofRandom((randomamount+1.)*5.);}
+    {size2 = ofRandom((randomamount+1.)*5.);}}}
+    //else ynoise = 0;}//else xnoise = 0;
+		
+    
+    ///mirroring setup for positioning on screen
+    if ((mirror == true)
+        or (mirrorScale == true)) {
+        screenX  = 640/2;
+        screenY = height/2;}
+    
+    if ((mirror == false) &&
+        (mirrorScale==false)) {
+        screenX = 0;
+        screenY = 0;}
+    ///
+    
+    
+    ///keyboard to scroll k for X[left to right]
+    if(ofGetKeyPressed('k') or (Xlr == true)) {
+        xPos += xSpeed + xnoise;
+        if(width<xPos){
+            xPos = 0;}}
+    
+    
+     ///keyboard to scroll i for X[right to left]
+    if(ofGetKeyPressed('i') or (Xrl == true)){
+        xPos -= xSpeed + xnoise;
+        if(0>xPos){
+            xPos = width;}}
+    
+    
+    ///keyboard to scroll j for Y[top to bottom]
+    if(ofGetKeyPressed('j') or (Ytb == true)){
+        yPos += ySpeed + ynoise;
+        if(height<yPos){
+            yPos = 0;}}
+    
+    //keyboard to scroll u for Y[bottom to top]
+    if(ofGetKeyPressed('u') or (Ybt == true)){
+        yPos -= ySpeed + ynoise;
+        if(0>yPos){
+            yPos = height;}}
+    
+    
+ 
+    
+    ///pointer variable for ease of reading
+    pointerX =(mouseX - screenX - midimouseX + xPos) / 720. * 640. ;
+    pointerY = mouseY - screenY - midimouseY + yPos;
+    
+    
+    /*///this will allow the result of pointer to wrap around the screen
+     if ((mirror == false) &&
+     (mirrorScale == false)){
+    if(640<pointerX) {pointerX = pointerX-640;} 
+    if(0>pointerX)     {pointerX = 640+pointerX;}
+    if(height<pointerY){pointerY = pointerY-height;} 
+     if(0>pointerY)     {pointerY = height+pointerY;}}
+    */
+        
+    
+    //wrap around for colorof brush [0-4]
+    if(ColorofBrush == 5){ColorofBrush = 1;}
+    if(ColorofBrush == 0){ColorofBrush = 4;}
+    
+    
+    //wrap around for brush (keyboard) [0-6]
+    if(brush == 7){brush = 1;}
+    if(brush == 0){brush = 6;}
+    
+    //wrap around for mirrorshape [0-11]
+    if(mirrorshape == 12){mirrorshape = 1;}
+    if(mirrorshape == 0){mirrorshape = 11;}
+    
+    
+    //sequencing mirrorshape/mirrornumber [0-11]
+    switch (mirrorshape) {
+        case 1 : mirrorshape = 1; mirrornumber = 2;  break;
+        case 2 : mirrorshape = 2; mirrornumber = 3;  break;
+        case 3 : mirrorshape = 3; mirrornumber = 4;  break;
+        case 4 : mirrorshape = 4; mirrornumber = 5;  break;
+        case 5 : mirrorshape = 5; mirrornumber = 6;  break;
+        case 6 : mirrorshape = 6; mirrornumber = 7;  break;
+        case 7 : mirrorshape = 7; mirrornumber = 8;  break;
+        case 8 : mirrorshape = 8; mirrornumber = 9;  break;
+        case 9 : mirrorshape = 9; mirrornumber = 16; break;
+        case 10: mirrorshape =10; mirrornumber = 32; break;
+        case 11: mirrorshape =11; mirrornumber = 64; break;
+        default: mirrornumber = 3; break;
+    }
+    
+    
+    
+
 
 }
 
@@ -48,17 +200,11 @@ void ofApp::draw(){
 
 
     
-    if ((mirror == true)
-        or (mirrorScale == true)) {
-        screenX  = ofGetHeight()/2;
-        screenY = ofGetWidth()/2;}
     
-    if ((mirror == false) &&
-        (mirrorScale==false)) {
-        screenX = 0;
-        screenY = 0;}
     
-    ofVec2f mousePos(mouseX+midimouseX - screenX, mouseY+midimouseY - screenY);
+    //ofVec2f mousePos(mouseX+midimouseX - screenX, mouseY+midimouseY - screenY);
+    ofVec2f mousePos(mouseX - screenX - midimouseX + xPos, mouseY - screenY - midimouseY + yPos);
+  
     
     
     //sets the color vairables for the background gradient
@@ -86,10 +232,11 @@ void ofApp::draw(){
     //meaning you can color the background then draw/point over that color
     if (ofGetMousePressed(OF_MOUSE_BUTTON_RIGHT)
         or (erase == true)
-        or (ofGetKeyPressed('q'))){
+        or (ofGetKeyPressed('q')
+        or (ofGetKeyPressed('w')))){
         
             fbo.begin();
-            ofClear(0);
+            ofClear(0,0);
         
             //background gradient [backGrad] ON/OFF this will allow you to set a gradient
             //rather than solid color background.
@@ -104,17 +251,28 @@ void ofApp::draw(){
                 //if(backGrad == true) {ofBackgroundGradient(colorOne*(bgcolor4/255.0), colorTwo, OF_GRADIENT_LINEAR);}
         
             if(backGrad == false) {ofBackground(colorTwo);}
+    
             fbo.end();}
     
     //XYZ translation for entire image double Width and Height then use traslate to access 4 quadrants
     //may change back...if so just cut this translate out and paste over next one ie [translate]0,0,0
-    ofTranslate(transx, transy, 0);
+    
+    //taken out for scaling
+    //ofTranslate(transx, transy, 0);
     //ofTranslate(transx, transy, transz);
     
     
     
     
     fbo.begin();
+    
+    ////turn me off when not painting with video
+    ////if off while video on whole video shows through instead
+    if(videopainting == true){ofClear(0,0);}
+    
+    
+    
+    //
     //start drawing loop
     //if drawing is true skip the background stuff and just do the brush
     if (ofGetMousePressed(OF_MOUSE_BUTTON_LEFT)
@@ -153,33 +311,67 @@ void ofApp::draw(){
                 //moved translation stuff above FBO begin to allow for translating entire image
                 ofTranslate(0, 0, 0);
         
+                //ofScale(transx, transx, 5);
+        
+        
                 //start mirroring (should be after inital translate)
                 ofPushMatrix();
 
                 //logic to set correct translation for both mirroring and regular brush
                 //when mirroring / scaling I want to be drawing from center of screen
-                if ((mirror == true) or
-                    (mirrorScale == true))
-                        {ofTranslate(ofGetWidth()/2, ofGetHeight()/2);}
-                if ((mirror == false) &&
-                    (mirrorScale == false))
-                        {ofTranslate(0,0);}
+                ofTranslate(screenX, screenY);
+                
         
                     //mirroring substance
                     //i = number of brushes to be drawn
                     //[mirrorshape] set by 3 MIDI buttons to select between
                     //2,4,8,16,32,64
-                    for (int i=0; i<mirrorshape; i++) {
+                    for (int i=0; i<mirrornumber; i++) {
+                        
+                        //if mirroring or scaling then set color to vector value randomized in the setup
+                        //this allows each shape to have its own color value then is added with the knobs and wrapped around the maximum color value
+                        //the colorization set by [colorofbrush] in the same way as before is added to the vector values per shape
+                        //however if [brushcolor] is OFF then color is set by previous color settings which means you can swap between
+                        //having all shapes different colors and all the same with randomizations
+                        if(brushcolor == false){
+                        if ((mirror == true) or
+                            (mirrorScale == true)){{{{
+                             if (ColorofBrush == 1){ofSetColor(
+                                                        (colorR[i] + brushred) % 255,
+                                                        (colorG[i] + brushgreen) % 255,
+                                                        (colorB[i] + brushblue) % 255,
+                                                        brushalpha);}}
+                            
+                            if (ColorofBrush == 2){ofSetColor(
+                                                        (brushred) % 255,
+                                                        (brushgreen) % 255,
+                                                        (brushblue) % 255,
+                                                        (colorA[i] + ranalpha) % 255);}}
+                            
+                            if (ColorofBrush == 3){ofSetColor(
+                                                        (colorR[i] + ranred + brushred) % 255,
+                                                        (colorG[i] + rangreen + brushgreen) % 255,
+                                                        (colorB[i] + ranblue + brushblue) % 255,
+                                                        brushalpha);}}
+                        
+                            if (ColorofBrush == 4){ofSetColor(
+                                                        (colorR[i] + ranred) % 255,
+                                                        (colorG[i] + rangreen) % 255,
+                                                        (colorB[i] + ranblue) % 255,
+                                                        (colorA[i] + ranalpha) % 255);}}}
+                           
+                        
+                        
+                        
                         
                         //allows for combining effect [mirror] and [mirrorScale]
                         //[mirrorScale] will scale the brush a specified amount for each time drawn [i]
                         //[mirror] will rotate a certain number of degrees each time [i] is drawn
-                        if (mirrorScale == true){ofScale(scaleamount/711.0*3-3);}
-                        if (mirror == true){ofRotateDeg(360.0/mirrorshape);}
+                        if (mirrorScale == true){ofScale(scaleamount/711.0*1.25-1.25);}
+                        if (mirror == true){ofRotateDeg(360.0/mirrornumber);}
                         
                         
                         
-//** try colorization here too for random per shape?
                         //Circle brush
                         if (brush == 1) {
                             //set circle resolution very high and you won't notice this behavior and you get a nice clean circle
@@ -188,35 +380,19 @@ void ofApp::draw(){
                             ofSetCircleResolution(cirres-ofRandom(0,10));
                             //if you don't want this one just comment out/delete above line & uncomment below
                             //ofSetCircleResolution(cirres);
+                            ofDrawCircle (pointerX, pointerY, size/4.);}
                             
-                            //logic to set correct translation to allow for mirror/brush modes
-                            if ((mirror == true) or
-                                (mirrorScale == true)) {
-                                ofDrawCircle (mouseX - ofGetWidth()/2 - midimouseX,
-                                              mouseY - ofGetHeight()/2 - midimouseY,
-                                              size);}
-                            
-                            if ((mirror == false) &&
-                                (mirrorScale==false)){
-                                ofDrawCircle (mouseX - midimouseX,
-                                              mouseY - midimouseY,
-                                              size);}}
+                     
                         
                         //Rectangle brush
                         if (brush == 2) {
                             ofSetRectMode(OF_RECTMODE_CENTER);
                             //pretty much same as above except the added [size2] which allows for rectangle shaping
-                            if ((mirror == true) or
-                                (mirrorScale == true)) {
-                                ofDrawRectangle(mouseX - ofGetWidth()/2 - midimouseX,
-                                                mouseY - ofGetHeight()/2 - midimouseY,
+                            
+                                ofDrawRectangle(pointerX, pointerY,
                                                 size*2, size2);}
                             
-                            if ((mirror == false) &&
-                                (mirrorScale==false)){
-                                ofDrawRectangle(mouseX - midimouseX,
-                                                mouseY - midimouseY,
-                                                size*2, size2);}}
+                    
                         
                         
                         
@@ -247,8 +423,6 @@ void ofApp::draw(){
                         //random line brush
                         //simple brush for creating random lines accross the screen
                         //no real control
-                        
-    //**set up above to also be controled by randomtime then call here
                         if (brush == 4){
                             
                                 if ((mirror == true) or
@@ -276,7 +450,7 @@ void ofApp::draw(){
                             //just bring the [size2] down to create less lines at a time
                             int numLines = size2/6+1;
                             //int minRadius = 25;
-                            int minRadius = cirres/5;
+                            int minRadius = cirres/5.;
                             // int maxRadius = ofGetHeight()/5;
                             int maxRadius = size;
                             for (int i=0; i<numLines; i++) {
@@ -314,44 +488,87 @@ void ofApp::draw(){
                                 if ((mirror == true) or
                                     (mirrorScale == true)) {
                                     ofDrawLine(
-                                               mouseX+ midimouseX - ofGetHeight()/2,
-                                               mouseY+ midimouseY - ofGetWidth()/2,
-                                               mouseX+xOffset-midimouseX - ofGetHeight()/2,
-                                               mouseY+yOffset-midimouseY - ofGetWidth()/2);}
+                                               mouseX - ofGetHeight()/2- midimouseX + xPos,
+                                               mouseY - ofGetWidth()/2 - midimouseY + yPos,
+                                               mouseX+xOffset - ofGetHeight()/2 - midimouseX + xPos,
+                                               mouseY+yOffset- ofGetWidth()/2 - midimouseY + yPos);}
                                 
                                 if ((mirror == false) &&
                                     (mirrorScale==false)){
                                     ofDrawLine(
-                                               mouseX+ midimouseX,
-                                               mouseY+ midimouseY,
-                                               mouseX+xOffset-midimouseX,
-                                               mouseY+yOffset-midimouseY);}}}
+                                               mouseX - midimouseX + xPos,
+                                               mouseY - midimouseY + yPos,
+                                               mouseX+xOffset-midimouseX + xPos,
+                                               mouseY+yOffset-midimouseY + yPos);}}}
                         
                         //"advanced" triangle brush
                         if (brush == 6)
                             //lets you position all angles freely so you can conjur up many more forms
                             //especially when using mirroring
-                            {ofDrawTriangle(trix,  size,
-                                            triy*1.5, mouseY,
-                                            mouseX, size2*.7);}
+                            {ofDrawTriangle(trix - xPos,  size - yPos,
+                                            triy*1.5 + yPos, mouseY - xPos,
+                                            mouseX + xPos, size2*.7 + yPos);}
+                        
+                        
+                        /*
+                        if(brush == 7)
+                        {
+                            ofDrawRectangle(xPos, mouseY, xSpeed/(size /200. +1), ofGetHeight()-size2*2.75 );
+                            //ofDrawRectangle(mouseX, mouseY, xPos, yPos);
+                        }
+                         */
+                        
+                        
+                        //
+                        
+                        //if(ofGetKeyPressed('k') or (ofGetKeyPressed('i'))) {ofDrawRectangle(xPos, 0, xSpeed, ofGetHeight());}
+                        
+                        
+                        
+                        //ofDrawRectangle(0, yPos, ofGetWidth(), ySpeed/2);
+                        
+                        //if(ofGetKeyPressed('j') or (ofGetKeyPressed('u'))){ofDrawRectangle(0, yPos, ofGetWidth(), ySpeed);}
+                        //ofDrawRectangle(0, yPos, ofGetWidth(), ySpeed);
+                        
+                        
+                        
+                        //ofDrawRectangle(mouseX, mouseY, xPos, yPos);
+                        
+                        
+                        //ofDrawRectangle(ofGetMouseX()/2.3, ofGetMouseY() /2, xPos, yPos);
+                        
                         }
                         ofPopStyle();
                         ofPopMatrix();
                     }
     
     fbo.end();
-    //ofSetColor(255, 255, 255, 255);
-    fbo.draw(0,0);
+    
+  
+    if(videopainting == false){fbo.draw(0,0,ofGetWidth(),ofGetHeight());}
+  
+    
+    paint.begin();
+    if(videopainting == true & erase == false){vidGrabber.draw(0, 0);}
+    else {ofClear(0,0);}
+    paint.end();
     
     
+    if(videopainting == true & erase == true){vidGrabber.draw(0, 0,ofGetWidth(),ofGetHeight());}
+    
+    
+    if(videopainting == true & erase == false){paint.draw(0,0,ofGetWidth(),ofGetHeight());}
     
 
     
-
+    
+    ///taking out brush preview for now maybe bring back later
+    ////
     //[brushpreview] controls ability to show brush and not paint it to FBO
     if(brushpreview == true)
     {
-    //**try to add back in mirroring?
+        
+    //try to add back in mirroring?
         ofPushStyle();
         
         //ofSetColor(brushred,brushgreen,brushblue,brushalpha);
@@ -370,34 +587,24 @@ void ofApp::draw(){
             if (ColorofBrush == 4)
             {ofSetColor(ranred,rangreen,ranblue,ranalpha);}}
         
+        
         //if [brushcolor] is OFF set to white with alpha control for brightness
         // you can toggle back and forth between your color and white
         if (brushcolor == false) {ofSetColor(255,brushalpha);}
         
-        
-        
             //Circle brush
-            if (brush == 1) {
-                
-                    ofDrawCircle (mouseX - midimouseX,
-                                  mouseY  - midimouseY,
-                                  size);}
-        
+            if (brush == 1) {ofDrawCircle (pointerX, pointerY, size/4.);}
             
             //Rectangle brush
             if (brush == 2) {
                 ofSetRectMode(OF_RECTMODE_CENTER);
                 //pretty much same as above except the added [size2] which allows for rectangle shaping
-                
-                
-                    ofDrawRectangle(mouseX - midimouseX,
-                                    mouseY - midimouseY,
-                                    size*2, size2);}
-            
-            
-            
+                ofDrawRectangle(pointerX, pointerY,size*2, size2);}
+     
             //Triangle brush
             if (brush == 3){
+                
+                //ofTranslate(mouseX,mouseY);
                 //[size2,trix,triy] all used for triangle shaping on individual corners
                 //[size] used to change whole shape
                 ofVec2f p1(0 * (size/382.), -triy - 100.0 * (size/382.));
@@ -483,6 +690,7 @@ void ofApp::draw(){
     
     
     
+    
 }
     
 
@@ -491,8 +699,16 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
 
     
-    // if(key == '`') {glReadBuffer(GL_FRONT);
-    //     ofSaveScreen("savedScreenshot_"+ofGetTimestampString()+".png");}
+    if(key == '1' || key == 'F'){ofToggleFullscreen();}
+    
+    
+    if(key == '2') {Xlr = !Xlr; if(Xrl == true) {Xrl = !Xrl;}}
+    if(key == '3') {Xrl = !Xrl; if(Xlr == true) {Xlr = !Xlr;}}
+    if(key == '4') {Ytb = !Ytb; if(Ybt == true) {Ybt = !Ybt;}}
+    if(key == '5') {Ybt = !Ybt; if(Ytb == true) {Ytb = !Ytb;}}
+    
+    
+    if(key == '6') {videopainting = !videopainting;}
     
     
     
@@ -513,12 +729,8 @@ void ofApp::keyPressed(int key){
     if (key == 'r') {drawing = true;}
     
     //brush management
-    if(key == '1'){brush = 1;}
-    if(key == '2'){brush = 2;}
-    if(key == '3'){brush = 3;}
-    if(key == '4'){brush = 4;}
-    if(key == '5'){brush = 5;}
-    if(key == '6'){brush = 6;}
+    if(key == '8'){brush += 1;}
+    if(key == '7'){brush -= 1;}
     
     
     //Add to size F || Subtract from size V
@@ -566,16 +778,16 @@ void ofApp::keyPressed(int key){
     if (key == 'w'){
         bcolor1 = 0;
         bcolor2 = 0;
-        bcolor3 = 0;
-    }
+        bcolor3 = 0;}
     
     
     if (key == '0') {
         brushred = ofRandom(0, 255);
         brushgreen = ofRandom(0, 255);
-        brushblue = ofRandom(0, 255);
-    }
+        brushblue = ofRandom(0, 255);}
      
+     
+    
     
 }
 
@@ -583,109 +795,102 @@ void ofApp::keyPressed(int key){
 
 void ofApp::newMidiMessage(ofxMidiMessage& message){
     
-    //Below MIDI toggle/buttons
     
-    //cursor on / off 64 toggle
+    
+    ///toggles///
+    /////////////
+    ///Top row///
+    /////////////
+    
+    //cursor on/off 64 | 1
     if (message.control == 64) {
         if (message.value == 127) {ofShowCursor();}
         if (message.value == 0) {ofHideCursor();}}
     
+    //erase buffer if OFF / paint mode is ON  cursor/spotlight mode
+    if (message.control == 65) {
+        if (message.value == 127) {erase=true;}
+        if (message.value == 0) {erase=false;}}
+    
+    //MirrorScale on/off 66
+    if (message.control == 66) {
+        if (message.value == 127) {mirrorScale=true;}
+        if (message.value == 0) {mirrorScale=false;}}
+
+    //Background gradient on/off 67
+    //if off result is standard solid color background
+    if (message.control == 67) {
+        if (message.value == 127) {backGrad=true;}
+        if (message.value == 0) {backGrad=false;}}
+    
+    
+    //background Color (from brush color) on/off 8
+    if (message.control == 68) {
+        if (message.value == 127) {backColor=true;}
+        if (message.value == 0) {backColor=false;}}
+    
+    //random background (both if gradient is on) color button 39 CC | 8 top toggle
+    if (message.control == 69)
+    {if (message.value == 0) {
+        bcolor1 = ofRandom(0, 255);
+        bcolor2 = ofRandom(0, 255);
+        bcolor3 = ofRandom(0, 255);
+        bgcolor1 = ofRandom(0, 255);
+        bgcolor2 = ofRandom(0, 255);
+        bgcolor3 = ofRandom(0, 255);}
+        
+        if (message.value == 127 ) {
+            bcolor1 = ofRandom(0, 255);
+            bcolor2 = ofRandom(0, 255);
+            bcolor3 = ofRandom(0, 255);
+            bgcolor1 = ofRandom(0, 255);
+            bgcolor2 = ofRandom(0, 255);
+            bgcolor3 = ofRandom(0, 255);}}
+    
+    //Ybt 70
+    if (message.control == 70) {
+        if (message.value == 127) {Ybt = !Ybt; if(Ytb == true) {Ytb = !Ytb;}}
+        if (message.value == 0) {Ybt = !Ybt; if(Ytb == true) {Ytb = !Ytb;}}}
+    
+    //Xlr on/off 39
+    if (message.control == 39) {
+        if (message.value == 127) {Xlr = !Xlr; if(Xrl == true) {Xrl = !Xrl;}}
+        if (message.value == 0) {Xlr = !Xlr; if(Xrl == true) {Xrl = !Xrl;}}}
+    
+    ///random draw 61
+    if(message.control==61){
+        if(message.value==127){randomdraw = true;}
+        if(message.value==0){randomdraw = false;}}
+    
+    
+    ///Toggles///////
+    /////////////////
+    ////bottom row///
+    /////////////////
     
     
     //cursor fill on / off 32 toggle
     if (message.control == 32) {
         if (message.value == 127) {fill=true;}
         if (message.value == 0) {fill=false;}}
-    
-    
-    //MirrorScale on/off
-    if (message.control == 65) {
-        if (message.value == 127) {mirrorScale=true;}
-        if (message.value == 0) {mirrorScale=false;}
-    }
-    
-    
-    //Colorize Brush on / off 33 toggle
+
+    //simulation mouse press in order to draw shape on screen 33
     if (message.control == 33) {
-        if (message.value == 127) {brushcolor=true;}
-        if (message.value == 0) {brushcolor=false;}}
-    
-    //Mirror on/off 66
-    if (message.control == 66) {
-        if (message.value == 127) {mirror=true;}
-        if (message.value == 0) {mirror=false;}
-    }
-    
-    
-    //Background gradient on/off 34
-    //if off result is standard solid color background
-    if (message.control == 34) {
-        if (message.value == 127) {backGrad=true;}
-        if (message.value == 0) {backGrad=false;}}
-    
-    
-    
-    //background Color (from brush color) on/off 35
-    if (message.control == 35) {
-        if (message.value == 127) {backColor=true;}
-        if (message.value == 0) {backColor=false;}}
-    
-    /*
-     
-     //
-     if (message.control == 67) {
-     if (message.value == 127) {backGrad=true;}
-     if (message.value == 0) {backGrad=false;}}
-     
-     //
-     if (message.control == 36) {
-     if (message.value == 127) {backGrad=true;}
-     if (message.value == 0) {backGrad=false;}}
-     
-     //
-     if (message.control == 68) {
-     if (message.value == 127) {backGrad=true;}
-     if (message.value == 0) {backGrad=false;}}
-     
-     //
-     if (message.control == 37) {
-     if (message.value == 127) {backGrad=true;}
-     if (message.value == 0) {backGrad=false;}}
-     
-     //
-     if (message.control == 69) {
-     if (message.value == 127) {backGrad=true;}
-     if (message.value == 0) {backGrad=false;}}
-     
-     */
-    
-    
-    
-    //erase buffer if OFF / paint mode is ON  cursor/spotlight mode
-    if (message.control == 70) {
-        if (message.value == 127) {erase=true;}
-        if (message.value == 0) {erase=false;}}
-    
-    //simulation mouse press in order to draw shape on screen
-    if (message.control == 38) {
         if (message.value == 127) {drawing=true;}
         if (message.value == 0) {drawing=false;}}
     
-    ///color inversion (brush) & randomization (brush & background)
+    //Mirror on/off 34
+    if (message.control == 34) {
+        if (message.value == 127) {mirror=true;}
+        if (message.value == 0) {mirror=false;}}
     
-    //Invert current brush color 61 CC | 9 top toggle
-    if (message.control == 61) {if (message.value == 127) {
-        brushred = 255 - brushred;
-        brushgreen = 255 - brushgreen;
-        brushblue = 255 - brushblue;}
-        if (message.value == 0 ) {
-            brushred = 255 - brushred;
-            brushgreen = 255 - brushgreen;
-            brushblue = 255 - brushblue;}}
+    //Colorize Brush on / off 35 toggle
+    if (message.control == 35) {
+        if (message.value == 127) {brushcolor=true;}
+        if (message.value == 0) {brushcolor=false;}}
     
-    
-    //random color button 60 CC | 9 bottom toggle
-    if (message.control == 60)
+    //random color button 36 CC | 9 bottom toggle
+    if (message.control == 36)
     {if (message.value == 0) {
         brushred = ofRandom(0, 255);
         brushgreen = ofRandom(0, 255);
@@ -705,159 +910,182 @@ void ofApp::newMidiMessage(ofxMidiMessage& message){
             {brushalpha = ofRandom(0, 255);}}}}
     
     
+    ///color inversion (brush) & randomization (brush & background)
+    //Invert current brush color 37 CC | 9 top toggle
+    if (message.control == 37) {if (message.value == 127) {
+        brushred = 255 - brushred;
+        brushgreen = 255 - brushgreen;
+        brushblue = 255 - brushblue;}
+        if (message.value == 0 ) {
+            brushred = 255 - brushred;
+            brushgreen = 255 - brushgreen;
+            brushblue = 255 - brushblue;}}
+
     
-    //random background (both if gradient is on) color button 39 CC | 8 top toggle
-    if (message.control == 39)
-    {if (message.value == 0) {
-        bcolor1 = ofRandom(0, 255);
-        bcolor2 = ofRandom(0, 255);
-        bcolor3 = ofRandom(0, 255);
-        bgcolor1 = ofRandom(0, 255);
-        bgcolor2 = ofRandom(0, 255);
-        bgcolor3 = ofRandom(0, 255);}
+    //Ytb on/off 38
+    if (message.control == 38) {
+        if (message.value == 127) {Ytb = !Ytb; if(Ybt == true) {Ybt = !Ybt;}}
+        if (message.value == 0) {Ytb = !Ytb; if(Ybt == true) {Ybt = !Ybt;}}}
+    
+    
+    //Xrl on/off 55
+    if (message.control == 55) {
+        if (message.value == 127) {Xrl = !Xrl; if(Xlr == true) {Xlr = !Xlr;}}
+        if (message.value == 0) {Xrl = !Xrl; if(Xlr == true) {Xlr = !Xlr;}}}
+    
+    //Random Size on/off 60 | 9
+    if (message.control == 60
         
-        if (message.value == 127 ) {
-            bcolor1 = ofRandom(0, 255);
-            bcolor2 = ofRandom(0, 255);
-            bcolor3 = ofRandom(0, 255);
-            bgcolor1 = ofRandom(0, 255);
-            bgcolor2 = ofRandom(0, 255);
-            bgcolor3 = ofRandom(0, 255);}}
+        ) {
+        if (message.value == 127) {randomsize = true;}
+        if (message.value == 0) {randomsize = false;}}
     
+  
+   
+    ///////////////////////
+    ///transport buttons///
+    ///////////////////////
     
-    //sets the number of brushes to be mirrored
-    //which also sets the number of degrees to rotate
+    ///top row
+    ///mirrorshape + 43
     if(message.control==43){
-        if(message.value==127){mirrorshape = 4;}
-        if(message.value==0){mirrorshape = 2;}}
+        if(message.value==127){mirrorshape += 1;}
+        if(message.value==0){mirrorshape += 1;}}
     
+    ///mirrorshape - 44
     if(message.control==44){
-        if(message.value==127){mirrorshape = 16;}
-        if(message.value==0){mirrorshape = 8;}}
+        if(message.value==127){mirrorshape -= 1;}
+        if(message.value==0){mirrorshape -= 1;}}
     
+    ///video painting on/off 42
     if(message.control==42){
-        if(message.value==127){mirrorshape = 64;}
-        if(message.value==0){mirrorshape = 36;}}
-    //
+        if(message.value==127){videopainting = true;}
+        if(message.value==0){videopainting = false;}}
     
+    ///
+    
+    ///bottom row
+    ///color of brush + 41
     if(message.control==41){
-        if(message.value==127){ColorofBrush = 1;}
-        if(message.value==0){ColorofBrush = 2;}}
+        if(message.value==127){ColorofBrush += 1;}
+        if(message.value==0){ColorofBrush += 1;}}
     
+    ///color of brush - 45
     if(message.control==45){
-        if(message.value==127){ColorofBrush = 3;}
-        if(message.value==0){ColorofBrush = 4;}}
-    
-    
-       if(message.control==46){
-           if(message.value==127){brushpreview = true;}
-           if(message.value==0){brushpreview = false;}}
+        if(message.value==127){ColorofBrush -= 1;}
+        if(message.value==0){ColorofBrush -= 1;}}
     
     /*
-     Colorbrush 1
-     softpaint 2
-     Colorrandom 3
-     fullrandom 4
+     when you are randomizing a value the knob will work as a maximum value for the randomization
+     Colorbrush 1 full RGBA knob control
+     softpaint 2 RGB knob control random A
+     Colorrandom 3 RGB random A knob control
+     fullrandom 4 RGBA random
      */
     
-    ////below MIDI CCs
+    ///brush preview on/off 46
+    if(message.control==46){
+        if(message.value==127){brushpreview = true;}
+        if(message.value==0){brushpreview = false;}}
     
-    //MIDI brush changer 16 CC
-    if (message.control==16){brush=message.value/127.0*5+1;}
+   ///
     
     
+    ////MIDI CCs///////
+    ///////////////////
+    ///Top row knobs///
+    ///////////////////
     
+    ///MIDI brush changer 16 CC
+    if (message.control==16){brush=message.value/127.0*6+1;}
     
-    ///
-    
-    //MIDI Size 17 CC
+    ///MIDI Size 17 CC
     if (message.control==17) {size=(message.value/127.00*ofGetWidth())+1;}
     
-    //MIDI size2 121 CC
-    if (message.control==121) {size2=(message.value/127.0*ofGetHeight())+1;}
-    
-   // if (message.control==17) {size=(message.value/127.00*480.)+1;}
-    
-    
-   // if (message.control==121) {size2=(message.value/127.0*720)+1;}
-    
-    
-    ///
-    
-    //MIDI brush colorize Red 18 CC
+    //MIDI triangle X axis movement | if mirror scaling is on it controls scale amount  18 CC| 1
     if (message.control==18)
+    {trix=(message.value*5.6);}
+    
+    ///MIDI mouse X 19 CC| channel 7 on controller
+    if (message.control==19) {midimouseX=(message.value/127.0*760.0-380.0);}
+    
+    ///MIDI brush colorize Red 20 CC
+    if (message.control==20)
     {if (backColor == true)
     {bgcolor1 = message.value*2;} else
     {brushred=(message.value*2);}}
     
-    //MIDI brush colorize Green 19 CC
-    if (message.control==19)
+    ///MIDI brush colorize Green 21 CC
+    if (message.control==21)
     {if (backColor == true)
     {bgcolor2 = message.value*2;} else
     {brushgreen=(message.value*2);}}
     
-    //MIDI brush colorize Blue 20 CC
-    if (message.control==20)
+    ///MIDI brush colorize Blue 22 CC
+    if (message.control==22)
     {if (backColor == true)
     {bgcolor3 = message.value*2;} else
     {brushblue=(message.value*2);}}
     
-    //MIDI brush colorize Alpha 21 CC
-    if (message.control==21)
+    ///MIDI brush colorize Alpha 23 CC
+    if (message.control==23)
     {if (backColor == true)
     {bgcolor4 = message.value*2;} else
     {brushalpha=(message.value*2);}}
     
+    //MIDI Time between color/size/position/speed of scroll randomization 62 CC| 8
+    if (message.control==62){randomtime = (message.value+1)*6.5;}
+    
+    
+    /////////////
+    ///Sliders///
+    /////////////
+    
+    ///scale amount 120
+     if (message.control==120)
+    {scaleamount = message.value*5.6;}
+    
+    //MIDI size2 121 CC
+    if (message.control==121)
+    {if(brush == 7)
+    {size2=(message.value-63.0)/63.00 *320.0;} else
+    {size2=(message.value/127.0*ofGetHeight())+1;}}
+    
+    //MIDI triy 122 CC| 9
+    if (message.control==122) {triy=(message.value*3.75);}
+    
+    ///MIDI mouse y 123 CC| channel 8 on controller
+    if (message.control==123) {midimouseY=(message.value/127.0*520.0-260.0);}
+    
+    //MIDI background colorize Red 124 CC | 3
+    if (message.control==124) {bcolor1=(message.value*2);}
+    
+    //MIDI background colorize Green 125 CC | 4
+    if (message.control==125) {bcolor2=(message.value*2);}
+    
+    //MIDI background colorize Blue 126 CC | 5
+    if (message.control==126) {bcolor3=(message.value*2);}
+    
+    ///circle resolution 127
+    if (message.control==127) //{cirres=(message.value/127.0*150.0);}
+    {cirres=(message.value/127.0*200.0);}
+    
+    ///random amount 119
+    if (message.control==119)
+    {randomamount = message.value/127.0 * 80.0;}
+    
+    
     ///
     
-    //MIDI background colorize Red 2 CC | 3
-    if (message.control==122) {bcolor1=(message.value*2);}
     
-    //MIDI background colorize Green 3 CC | 4
-    if (message.control==123) {bcolor2=(message.value*2);}
-    
-    //MIDI background colorize Blue 4 CC | 5
-    if (message.control==124) {bcolor3=(message.value*2);}
-    
-    ///
-    
-    //MIDI translate X 125 CC| 6
-    //if (message.control==125) {transx=(message.value/127.0*760.0-380.0);}
-    if (message.control==125) {transx=(message.value/127.0*-640.0);}
-    
-    //MIDI translate y 126 CC| 7
-    //if (message.control==126) {transy=(message.value/127.0*520.0-260.0);}
-    if (message.control==126) {transy=(message.value/127.0*-480.0);}
-    
-    //MIDI Time between color randomization 127 CC| 8
-     if (message.control==127){randomtime = message.value*6.5+1;}
-    // if (message.control==127){transz=(message.value*3.25);}
-    
-    
-    ///
-    
-    //MIDI triangle X axis movement | if mirror scaling is on it controls scale amount  120 CC| 1
-    if (message.control==120)
-    {if (mirrorScale == true)
-    {scaleamount = message.value*5.6;} else
-    {trix=(message.value*5.6);}}
-    
-    
-    //MIDI triy 119 CC| 9
-    if (message.control==119) {triy=(message.value*3.75);}
-    
-    //MIDI Circle Resolution 62 CC| 9
-    if (message.control==62) {cirres=(message.value/127.0*150.0);}
-    
-    ///
-    
-    //MIDI mouse X 22 CC| channel 7 on controller
-    if (message.control==22) {midimouseX=(message.value/127.0*760.0-380.0);}
-    
-    //MIDI mouse y 23 CC| channel 8 on controller
-    if (message.control==23) {midimouseY=(message.value/127.0*520.0-260.0);}
-    
-    
+    ///not using Translate X&Y
+    /*
+     //translate X 125 CC | 6
+     if (message.control==125) {transx=(message.value/127.0*640.0);}
+     
+     //translate y 126 CC | 7
+     if (message.control==126) {transy=(message.value/127.0*-480.0);}
+     */
     
     
     
@@ -873,12 +1101,8 @@ void ofApp::newMidiMessage(ofxMidiMessage& message){
 
 //add image as brush?
 
+//depth testing enable/disable for layers?
 
-
-
-//video style oscillator
-//gradients/rectangles used and repeated
-//sizing vertically to allow oscillator to become repeating square shape gen
 
 
 

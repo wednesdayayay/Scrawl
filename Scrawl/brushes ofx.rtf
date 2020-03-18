@@ -1,0 +1,326 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+\f3\fnil\fcharset0 Menlo-Italic;\f4\fnil\fcharset0 Menlo-BoldItalic;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red31\green31\blue36;\red252\green95\blue163;
+\red174\green243\blue125;\red150\green134\blue245;\red108\green121\blue134;\red153\green232\blue213;}
+{\*\expandedcolortbl;;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c12054\c12284\c14131;\csgenericrgb\c98839\c37355\c63833;
+\csgenericrgb\c68215\c95290\c48909;\csgenericrgb\c58752\c52717\c95948;\csgenericrgb\c42394\c47462\c52518;\csgenericrgb\c59926\c90967\c83488;}
+\margl1440\margr1440\vieww10800\viewh15800\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Momiphone6\
+\
+\
+\
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\f1 \cf2 \cb3  \
+\
+\
+RECT BASIC\
+\
+
+\f2\b \cf4 if
+\f1\b0 \cf2  (\cf5 ofGetMousePressed\cf2 (\cf5 OF_MOUSE_BUTTON_LEFT\cf2 )) \{\
+        \cf5 ofSetColor\cf2 (\cf6 255\cf2 );\
+        \cf5 ofSetRectMode\cf2 (\cf5 OF_RECTMODE_CENTER\cf2 );\
+        \cf5 ofDrawRectangle\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), \cf6 50\cf2 , \cf6 50\cf2 );\
+    \}\
+\
+\
+RANDOM B&W rect brush\
+
+\f3\i \cf7 \
+
+\f2\i0\b \cf4 float
+\f1\b0 \cf2  randomcolor = \cf5 ofRandom\cf2 (\cf6 50\cf2 ,\cf6 255\cf2 );\
+        \
+        
+\f2\b \cf4 if
+\f1\b0 \cf2 (\cf5 ofGetMousePressed\cf2 (\cf5 OF_MOUSE_BUTTON_LEFT\cf2 ))\{\
+            \cf5 ofSetColor\cf2 (randomcolor);\
+            \cf5 ofDrawRectangle\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), \cf6 50\cf2 , \cf6 50\cf2 );\
+        \}\
+\
+\
+\
+STAR BURST\
+\
+
+\f2\b \cf4 int
+\f1\b0 \cf2  numLines = \cf6 30\cf2 ;\
+        
+\f2\b \cf4 int
+\f1\b0 \cf2  minRadius = \cf6 25\cf2 ;\
+        
+\f2\b \cf4 int
+\f1\b0 \cf2  maxRadius = \cf6 125\cf2 ;\
+        
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  i=\cf6 0\cf2 ; i<numLines; i++) \{\
+            
+\f2\b \cf4 float
+\f1\b0 \cf2  angle = \cf5 ofRandom\cf2 (\cf5 ofDegToRad\cf2 (\cf6 360.0\cf2 ));\
+            
+\f2\b \cf4 float
+\f1\b0 \cf2  distance = \cf5 ofRandom\cf2 (minRadius, maxRadius);\
+            
+\f2\b \cf4 float
+\f1\b0 \cf2  xOffset = \cf8 cos\cf2 (angle) * distance;\
+            
+\f2\b \cf4 float
+\f1\b0 \cf2  yOffset = \cf8 sin\cf2 (angle) * distance;\
+            
+\f2\b \cf4 float
+\f1\b0 \cf2  alpha = \cf5 ofMap\cf2 (distance, minRadius, maxRadius, \cf6 50\cf2 , \cf6 0\cf2 );  
+\f3\i \cf7 // Make shorter lines more opaque
+\f1\i0 \cf2 \
+            \cf5 ofSetColor\cf2 (\cf6 255\cf2 , alpha);\
+            \cf5 ofDrawLine\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), \cf5 ofGetMouseX\cf2 ()+xOffset, \cf5 ofGetMouseY\cf2 ()+yOffset);\
+        \}\
+\
+\
+\
+LINE RECT\
+\
+
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  i = \cf6 5\cf2  ; i < \cf5 ofGetHeight\cf2 () ; i += \cf6 5\cf2 )\{\
+        \
+        \
+            \
+        \
+            \
+            \cf5 ofDrawRectangle\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), \cf6 1\cf2  - i, \cf6 1\cf2 +i );\
+            \
+            \cf5 ofNoFill\cf2 ();\
+            \
+            \
+        \}\
+\
+\
+GRID RECT\
+\
+\
+ 
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  i = \cf6 0\cf2  ; i < \cf5 ofGetHeight\cf2 () ; i += \cf6 5\cf2 )\{\
+        \
+               
+\f2\b \cf4 for
+\f1\b0 \cf2 (
+\f2\b \cf4 int
+\f1\b0 \cf2  a = \cf6 0\cf2  ; a < \cf5 ofGetWidth\cf2 (); a += \cf6 50\cf2 )\{\
+           \cf5 ofNoFill\cf2 ();\
+          \cf5 ofDrawRectangle\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), \cf6 1\cf2 +i, \cf6 1\cf2 +a);\
+        
+\f3\i \cf7 // ofDrawRectangle(0+a+ofGetMouseX(), 0+i+ofGetMouseY(), 100, 100);
+\f1\i0 \cf2 \
+                \}\
+\
+            \}\
+\
+\
+
+\f3\i \cf7 \
+
+\f4\b Concentric circle
+\f3\b0 \
+
+\f1\i0 \cf2  
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  i = \cf6 0\cf2  ; i < \cf5 ofGetHeight\cf2 () ; i += \cf6 5\cf2 )\{\
+            \
+        \
+              \
+            \
+                \cf5 ofDrawCircle\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), \cf6 1\cf2  + i);\
+\
+        \cf5 ofNoFill\cf2 ();\
+        \
+        \
+           \}\
+\
+\
+\
+
+\f2\b Burner concentric circle
+\f1\b0 \
+ 
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  i = \cf6 5\cf2  ; i < \cf5 ofGetHeight\cf2 () ; i += \cf6 5\cf2 )\{\
+            \
+            
+\f2\b \cf4 for
+\f1\b0 \cf2 (
+\f2\b \cf4 int
+\f1\b0 \cf2  a = \cf6 50\cf2  ; a < \cf5 ofGetWidth\cf2 (); a += \cf6 50\cf2 )\{\
+        \
+                \
+            \
+                \cf5 ofDrawCircle\cf2 (\cf5 ofGetMouseX\cf2 (), \cf5 ofGetMouseY\cf2 (), a / i);\
+\
+        \cf5 ofNoFill\cf2 ();\
+        \
+        \
+           \}\
+        \
+        \
+        \}\
+\
+\
+        \
+        \
+\
+\
+TRIANGLE\
+\
+\
+     ofVec2f mousePos(ofGetMouseX(), ofGetMouseY());\
+        \
+        
+\f2\b \cf4 int
+\f1\b0 \cf2  numTriangles = \cf6 10\cf2 ;\
+        
+\f2\b \cf4 int
+\f1\b0 \cf2  minOffset = \cf6 5\cf2 ;\
+        
+\f2\b \cf4 int
+\f1\b0 \cf2  maxOffset = \cf6 70\cf2 ;\
+        
+\f2\b \cf4 int
+\f1\b0 \cf2  alpha = \cf6 150\cf2 ;\
+        
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  t=\cf6 0\cf2 ; t<numTriangles; t++) \{\
+            
+\f2\b \cf4 float
+\f1\b0 \cf2  offsetDistance = ofRandom(minOffset, maxOffset);\
+        \
+        
+\f3\i \cf7 // Define a triangle at the origin (0,0) that points to the right
+\f1\i0 \cf2 \
+        ofVec2f p1(\cf6 0\cf2 , \cf6 25.0\cf2 );\
+        ofVec2f p2(\cf6 100\cf2 , \cf6 0\cf2 );\
+        ofVec2f p3(\cf6 0\cf2 , -\cf6 25.0\cf2 );\
+        \
+        
+\f3\i \cf7 // Rotate the triangle points around the origin
+\f1\i0 \cf2 \
+        
+\f2\b \cf4 float
+\f1\b0 \cf2  rotation = ofRandom(\cf6 360\cf2 ); 
+\f3\i \cf7 // The rotate function uses degrees!
+\f1\i0 \cf2 \
+        p1.rotate(rotation);\
+        p2.rotate(rotation);\
+        p3.rotate(rotation);\
+        \
+            \
+            ofVec2f triangleOffset(offsetDistance, \cf6 0.0\cf2 );\
+            triangleOffset.rotate(rotation);\
+            \
+            p1 += mousePos + triangleOffset;\
+            p2 += mousePos + triangleOffset;\
+            p3 += mousePos + triangleOffset;\
+            \
+            ofSetColor(\cf6 255\cf2 , alpha);\
+            ofDrawTriangle(p1, p2, p3);\
+        \}\
+        \
+\
+\
+\
+
+\f3\i \cf7 \
+\
+
+\f1\i0 \cf2 XXXXXXXXXXXXXXXXXXXXXXX\
+     \
+             
+\f3\i \cf7 //mirroring substance
+\f1\i0 \cf2 \
+                
+\f2\b \cf4 for
+\f1\b0 \cf2  (
+\f2\b \cf4 int
+\f1\b0 \cf2  i=\cf6 0\cf2 ; i<\cf6 48\cf2 ; i++) \{\
+                    
+\f3\i \cf7 /*
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      *=leaving out of options?
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      *100 shape 3.6 deg
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      72 shape 5 deg
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      *48 shape 15 deg
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      36 shape 10 deg
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      *16 shape 22.5
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      8 shape 45
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      4 shape 90 deg
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      2 shape 180 deg
+\f1\i0 \cf2 \
+
+\f3\i \cf7                      */
+\f1\i0 \cf2 \
+                    \
+                    \
+                    \
+                    \cf5 ofScale\cf2 (\cf6 1.1\cf2 );\
+                    \cf5 ofRotateDeg\cf2 (\cf6 15\cf2 );\
+\
+            \
+            \
+            
+\f3\i \cf7 //\} then pop matrix to complete mirroring
+\f1\i0 \cf2 \
+        \}\
+        \cf5 ofPopMatrix\cf2 ();\
+        
+\f3\i \cf7 //
+\f1\i0 \cf2 \
+\
+\
+     
+\f3\i \cf7 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
