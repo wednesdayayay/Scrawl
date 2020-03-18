@@ -22,6 +22,7 @@ this allows for auto painting/drawing/slit scanning effects
 
 
 Added randomization for auto drawing/scrolling based on [randomtime] 
+
 added randomization for sizes based on [randomtime]
 
 Added multi color for mirror mode
