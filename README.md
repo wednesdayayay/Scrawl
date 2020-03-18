@@ -38,6 +38,9 @@ Added new background
 Added .sh files for ease of installing/running new apps
 these will be on the desktop for the new .iso 
 and also avilable for download here
+just download the zip from github, unzip it, make sure it is in "/home/pi/openFrameworks/apps/myApps/"
+then you shoud be able to run the .sh from the desktop and press excecute in terminal for it to do the work for you
+I'll make a video detailing some more basic functions of Scrawl then on about how to install scral on a new MicroSD card and use the .sh files then I'l detail the more advanced functions I've added in this new update
 
 
 Rearranged MIDI layout
