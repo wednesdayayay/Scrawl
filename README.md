@@ -239,7 +239,7 @@ basic operation is as follows
  
  a. you can download the 
  
-      V1 image here https://drive.google.com/file/d/1A_WYlWiLiBFM-Q_HzaYCTHow6WMYsq3X/view?usp=sharing
+      V1.5 image here https://drive.google.com/open?id=1ep0ZNawBRCll6pyFvFSpVqMtxO2fa4qM
 
 burn this onto your microSD with balena etcher linked above insert into RPI 3b/3b+ (older hardware revision the push pull microSD card interface) and it should boot right up for you upon start
  
